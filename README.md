@@ -8,6 +8,8 @@ The task was to build **Silicon Exchange**, a fictional marketplace for renting 
 
 ## The runs
 
+All three apps were one-shotted using OMP as the harness, with no custom plugins or tricks.
+
 | Model | Recorded run time | Code and app documentation |
 | --- | --- | --- |
 | GLM 5.3 Flash | 1h 44m | [glm53-flash](./glm53-flash/) |
@@ -42,7 +44,7 @@ Dependency installation and Google font downloads during development or builds r
 
 ## The shared task
 
-The original prompt is preserved as `plan.md` in each app directory, and all three copies are identical. It asks for 24 GPU listings, seeded utilization charts, URL-based filters, a comparison page, and persistent reservations.
+Read [Alex Ziskind's original prompt](https://gist.github.com/alexziskind1/fe55f03892f3fe1d6d8cf6065c631bb8). It is also preserved as `plan.md` in each app directory, and all three copies are identical. It asks for 24 GPU listings, seeded utilization charts, URL-based filters, a comparison page, and persistent reservations.
 
 The booking rules include half-open time intervals, billing rounded up to 15 minutes with a one-hour minimum, a 10% discount on time beyond 24 hours, ten-minute reservation holds, and maintenance blocking new bookings. Each app contains its own implementation and tests, so the code is available to inspect alongside the visual results.
 
