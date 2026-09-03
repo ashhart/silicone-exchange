@@ -2,7 +2,7 @@
 
 Three local models, one coding prompt, a dual Spark cluster.
 
-After watching [@digitalix's video on cloud vs local](https://www.youtube.com/watch?v=ujs0_cpAnaw), I wanted to see what my dual Spark cluster could do with smaller models and OMP, with no custom plugins or tricks.
+After watching [Alex Ziskind](https://github.com/alexziskind1/)'s [video on cloud vs local](https://www.youtube.com/watch?v=ujs0_cpAnaw), I wanted to see what my dual Spark cluster could do with smaller models and OMP, with no custom plugins or tricks.
 
 The task was to build **Silicon Exchange**, a fictional marketplace for renting GPUs and AI accelerators by the hour. Each model received the same prompt and produced its own Next.js app, complete with mock listings, booking logic, tests, and a distinct design.
 
