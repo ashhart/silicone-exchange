@@ -1,0 +1,214 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #f4f4f2;
+  --surface: #ffffff;
+  --surface-2: #ececea;
+  --border: #d8d8d4;
+  --border-strong: #b8b8b2;
+  --text: #16181d;
+  --text-muted: #5c6068;
+  --text-faint: #8a8e96;
+  --accent: #0066cc;
+  --accent-soft: rgba(0, 102, 204, 0.1);
+  --ok: #0a7d33;
+  --warn: #b45309;
+  --danger: #c23616;
+  --chart-grid: #e4e4e0;
+}
+
+.dark {
+  --bg: #0a0b0d;
+  --surface: #101216;
+  --surface-2: #16181d;
+  --border: #23262c;
+  --border-strong: #3a3e46;
+  --text: #e8eaed;
+  --text-muted: #9aa0a8;
+  --text-faint: #62676f;
+  --accent: #00e5a0;
+  --accent-soft: rgba(0, 229, 160, 0.08);
+  --ok: #34d399;
+  --warn: #fbbf24;
+  --danger: #f87171;
+  --chart-grid: #1d2026;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-ink: var(--text);
+  --color-muted: var(--text-muted);
+  --color-faint: var(--text-faint);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --color-chart-grid: var(--chart-grid);
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+html {
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* Focus: animated electric ring, keyboard only */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+  transition: outline-offset 120ms ease;
+}
+
+/* Thin styled scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+/* Hero backdrop: animated gradient mesh, pure CSS */
+.hero-mesh {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-mesh::before,
+.hero-mesh::after {
+  content: "";
+  position: absolute;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.16;
+  will-change: transform;
+}
+
+.hero-mesh::before {
+  background: radial-gradient(circle, var(--accent) 0%, transparent 65%);
+  top: -30%;
+  left: -10%;
+  animation: mesh-drift 26s ease-in-out infinite alternate;
+}
+
+.hero-mesh::after {
+  background: radial-gradient(circle, #4f7cff 0%, transparent 65%);
+  bottom: -45%;
+  right: -15%;
+  animation: mesh-drift 32s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes mesh-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(6vw, 4vh, 0) scale(1.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-mesh::before,
+  .hero-mesh::after {
+    animation: none;
+  }
+}
+
+/* Hairline grid backdrop for the hero */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 75%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Status dots */
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  display: inline-block;
+  flex: none;
+}
+
+.status-dot.available {
+  background: var(--ok);
+  box-shadow: 0 0 6px var(--ok);
+}
+
+.status-dot.maintenance {
+  background: var(--warn);
+  box-shadow: 0 0 6px var(--warn);
+}
+
+.status-dot.retired {
+  background: var(--text-faint);
+}
+
+/* Card hover lift */
+.lift {
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.lift:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: 0 12px 32px -16px rgba(0, 0, 0, 0.5);
+}
+
+/* Monospace numerals */
+.num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Recharts tooltip surface */
+.chart-tooltip {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 12px;
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.4);
+}
+
+.chart-tooltip .label {
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}

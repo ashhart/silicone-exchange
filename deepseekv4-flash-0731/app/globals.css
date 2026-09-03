@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-inter), ui-sans-serif, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  --color-base: var(--sx-base);
+  --color-surface: var(--sx-surface);
+  --color-surface2: var(--sx-surface-2);
+  --color-line: var(--sx-line);
+  --color-line2: var(--sx-line-strong);
+  --color-ink: var(--sx-ink);
+  --color-muted: var(--sx-muted);
+  --color-faint: var(--sx-faint);
+  --color-accent: var(--sx-accent);
+  --color-accentink: var(--sx-accent-ink);
+  --color-ok: var(--sx-ok);
+  --color-warn: var(--sx-warn);
+  --color-danger: var(--sx-danger);
+}
+
+:root {
+  --sx-base: #f6f7f9;
+  --sx-surface: #ffffff;
+  --sx-surface-2: #eef0f4;
+  --sx-line: #e2e5eb;
+  --sx-line-strong: #c9cfd9;
+  --sx-ink: #161a21;
+  --sx-muted: #5c6575;
+  --sx-faint: #8b94a3;
+  --sx-accent: #0e7490;
+  --sx-accent-ink: #ffffff;
+  --sx-ok: #047857;
+  --sx-warn: #b45309;
+  --sx-danger: #be123c;
+}
+
+.dark {
+  --sx-base: #090b0e;
+  --sx-surface: #0e1116;
+  --sx-surface-2: #141922;
+  --sx-line: #222836;
+  --sx-line-strong: #2e3646;
+  --sx-ink: #e7eaf0;
+  --sx-muted: #8b94a3;
+  --sx-faint: #5c6575;
+  --sx-accent: #22d3ee;
+  --sx-accent-ink: #062a33;
+  --sx-ok: #34d399;
+  --sx-warn: #fbbf24;
+  --sx-danger: #fb7185;
+}
+
+@layer base {
+  * {
+    border-color: var(--sx-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--sx-base);
+    color: var(--sx-ink);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--sx-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+    transition: outline-offset 120ms ease-out;
+  }
+
+  ::selection {
+    background-color: var(--sx-accent);
+    color: var(--sx-accent-ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Animated gradient behind the hero headline */
+@keyframes sx-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.sx-hero-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--sx-accent) 0%,
+    #7c3aed 25%,
+    var(--sx-accent) 50%,
+    #0ea5e9 75%,
+    var(--sx-accent) 100%
+  );
+  background-size: 200% 200%;
+  animation: sx-shift 8s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes sx-pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--sx-ok) 60%, transparent);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 0 4px transparent;
+  }
+}
+
+.sx-pulse-dot {
+  animation: sx-pulse-dot 2s ease-in-out infinite;
+}
+
+/* Thin scrollbars for data-dense panels */
+.sx-scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sx-line-strong) transparent;
+}
+
+.sx-scroll-thin::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.sx-scroll-thin::-webkit-scrollbar-thumb {
+  background: var(--sx-line-strong);
+  border-radius: 3px;
+}
+
+/* Recharts overrides */
+.recharts-cartesian-axis-tick text {
+  fill: var(--sx-muted);
+  font-size: 10px;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+.recharts-tooltip-cursor {
+  stroke: var(--sx-line-strong);
+  stroke-dasharray: 3 3;
+}

@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+/* Theme is a class on <html>, not a media query. */
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
+
+@theme inline {
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-raised: var(--raised);
+  --color-hairline: var(--hairline);
+  --color-ink: var(--ink);
+  --color-dim: var(--dim);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-good: var(--good);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+}
+
+/* Dark is the default surface palette; .light flips tokens wholesale. */
+:root {
+  color-scheme: dark;
+  --bg: #07080a;
+  --panel: #0d0f13;
+  --raised: #12151b;
+  --hairline: rgba(232, 238, 255, 0.09);
+  --hairline-strong: rgba(232, 238, 255, 0.16);
+  --ink: #e8ebf2;
+  --dim: #8f97a6;
+  --faint: #59606d;
+  --accent: #b8ff2f;
+  --good: #37d498;
+  --warn: #f5b83d;
+  --bad: #ff5f5f;
+  --chart-grid: rgba(232, 238, 255, 0.07);
+}
+
+html.light {
+  color-scheme: light;
+  --bg: #f4f4f1;
+  --panel: #fbfbf9;
+  --raised: #ffffff;
+  --hairline: rgba(10, 13, 18, 0.13);
+  --hairline-strong: rgba(10, 13, 18, 0.22);
+  --ink: #0b0d11;
+  --dim: #525963;
+  --faint: #7d848f;
+  --accent: #4c7a00;
+  --good: #0a8a58;
+  --warn: #8a5d00;
+  --bad: #c03030;
+  --chart-grid: rgba(10, 13, 18, 0.09);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-feature-settings: "tnum" 1;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Thin scrollbars that match the surface. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--hairline-strong) transparent;
+}
+
+/* Faint blueprint grid used behind hero + empty states. */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, var(--chart-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--chart-grid) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.hairline-t {
+  border-top: 1px solid var(--hairline);
+}
+
+input[type="range"] {
+  accent-color: var(--accent);
+  height: 1.25rem;
+}
+
+input,
+select,
+button,
+textarea {
+  font: inherit;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.cursor-blink {
+  animation: blink 1.1s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .cursor-blink {
+    animation: none;
+  }
+}
